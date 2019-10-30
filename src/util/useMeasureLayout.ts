@@ -33,7 +33,7 @@ export default function useMeasureLayout(
 
     useMemo(() => context.registerCallback(id, 'measure', measure), [id, measure]);
 
-    const statusBarHeight = 0//useStatusBarHeight();
+    const statusBarHeight = useStatusBarHeight();
     
     useCode(setOffsetRect(id, props.offsets), [props.offsets]);
 
