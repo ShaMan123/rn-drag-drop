@@ -1,17 +1,17 @@
 ﻿import * as _ from "lodash";
 import React, { useRef } from "react";
 import { LongPressGestureHandler, PanGestureHandler } from "react-native-gesture-handler";
-import { View } from 'src/Animated';
-import { styles, useDragDropRef, useFirstChild } from "./Common";
+import { View } from 'animated';
 import { useDraggable, useDraggableActivator, useDraggableProps, useRegisterDraggable } from "./DraggableHooks";
 import { DraggableProps, Map } from "./Types";
+import { styles, useDragDropRef, useFirstChild } from "./util";
 
-function Draggable<T extends Map>(rawProps: DraggableProps<T>) {
+function Draggable<T extends Map>(props: DraggableProps<T>) {
     const id = useRegisterDraggable();
-    const [finalProps, unmountComponent] = useDraggableProps(id, rawProps);
-    const node = useFirstChild(rawProps, id);
+    const [finalProps, unmountComponent] = useDraggableProps(id, props);
+    const node = useFirstChild(props, id);
 
-    const { simultaneousHandlers, children, containerStyle, style, onDrop, longPressEnabled, ...rest } = finalProps;
+    const { simultaneousHandlers, children, containerStyle, style, longPressEnabled, ...rest } = finalProps;
 
     const ref = useDragDropRef(id);
     const [panProps, translateStyle] = useDraggable(id, finalProps);
@@ -55,7 +55,6 @@ Draggable.defaultProps = {
     longPressEnabled: true,
     dragEnabled: true,
     hoverDuration: 1500
-    //onDrop: true
 } as Partial<DraggableProps<Map>>;
 
 export default Draggable;

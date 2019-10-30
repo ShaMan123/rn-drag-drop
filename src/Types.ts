@@ -1,12 +1,13 @@
 ﻿import React from "react";
-import Animated from "src/Animated";
 import { LayoutChangeEvent, ViewProperties } from "react-native";
-import { PanGestureHandlerProperties, State, GestureHandlerStateChangeEvent } from "react-native-gesture-handler";
+import { PanGestureHandlerProperties } from "react-native-gesture-handler";
+import Animated from "react-native-reanimated";
 
 export type Map<T = any> = { [key: string]: T };
 export type ExcludeKey<K, KeyToExclude> = K extends KeyToExclude ? never : K;
 export type ExtractKey<K, KeyToExtract> = K extends KeyToExtract ? K : never;
 export type ExcludeField<A, KeyToExclude extends keyof A> = { [K in ExcludeKey<keyof A, KeyToExclude>]: A[K] };
+export type Required<T> = { [P in keyof T]-?: T[P] };
 
 export type WithId<T> = T & { id: string };
 

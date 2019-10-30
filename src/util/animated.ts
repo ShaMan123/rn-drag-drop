@@ -1,6 +1,7 @@
 ﻿import * as _ from "lodash";
 import { State } from "react-native-gesture-handler";
-import Animated, { and, greaterOrEq, lessOrEq, eq, or, proc, safeArrayOperator } from 'src/Animated';
+import Animated, { and, block, eq, greaterOrEq, lessOrEq, or, proc, safeArrayOperator, set } from 'animated';
+import { OffsetRect } from "../Types";
 
 export function isSameType<T extends number, I extends T | T[]>(
     a: I,
@@ -33,3 +34,7 @@ export const isInRect = proc((x, y, left, top, right, bottom) => and(
     greaterOrEq(y, top),
     lessOrEq(y, bottom)
 ));
+
+export function setRect(rectToUpdate: OffsetRect<Animated.Value<number>>, sourceRect: OffsetRect){
+    return block(_.map(rectToUpdate, (value, key) => set(value, sourceRect[key])));
+}

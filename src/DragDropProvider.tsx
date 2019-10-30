@@ -1,10 +1,7 @@
 ﻿import React, { useEffect, useMemo, useRef } from "react";
 import { Transition, Transitioning, TransitioningView, TransitioningViewProps } from 'react-native-reanimated';
-import { styles } from "./Common";
-import { DragDropContext, DragDropContextFactory } from "./DragDropContext";
-import { useCalculateLayout } from "./DropZoneHooks";
-import { useDragDropCallback } from "./Events";
 import { DragDropComparators, ExcludeField } from "./Types";
+import { DragDropContext, DragDropContextFactory, styles, useCalculateLayout, useDraggableStateChangeCaller } from "./util";
 
 export interface DragDropProviderProps {
     children: React.ReactNode,
@@ -60,7 +57,7 @@ function DragDropProvider({ children, disableAutoRecalculation, transition, comp
     }, [context, disableAutoRecalculation]);
     useCalculateLayout(context);
     
-    useDragDropCallback(context);
+    useDraggableStateChangeCaller(context);
 
     const ref = useRef<TransitioningView>();
 

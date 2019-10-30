@@ -2,7 +2,8 @@
 import { useMemo } from 'react';
 import Animated, { Easing } from 'react-native-reanimated';
 import { abs, block, clockRunning, cond, debug, divide, eq, max as maxOp, min as minOp, set, spring, SpringUtils, startClock, stopClock, Value, diffClamp, sqrt, add, pow, timing, call, Clock, onChange, diff, proc, or } from './Animated';
-import { Map } from '../Types';
+
+export type Map<T = any> = { [key: string]: T };
 
 type AnimatedVal = string | number | boolean | undefined;
 type OperatorEval = () => Animated.Adaptable<AnimatedVal>

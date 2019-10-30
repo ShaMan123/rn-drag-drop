@@ -1,11 +1,10 @@
 ﻿import * as _ from "lodash";
 import React, { useContext } from "react";
+import { findNodeHandle, UIManager } from "react-native";
 import Animated from 'react-native-reanimated';
-import { eq, neq, Value } from 'src/Animated';
-import { isSameAnimatedType, isSameType } from "./Util";
-import { DragDropComparators, DraggableContext, DraggableState, DropZoneContext, WithId } from "./Types";
-import { findNodeHandle, UIManager, MeasureLayoutOnSuccessCallback } from "react-native";
-import { DragDropProviderHOC } from "./DragDropProvider";
+import { eq, neq, Value } from 'animated';
+import { DragDropComparators, DraggableContext, DraggableState, DropZoneContext, WithId } from "../Types";
+import { isSameAnimatedType, isSameType } from "./animated";
 
 export type DragDropContextT = ReturnType<typeof DragDropContextFactory>;
 

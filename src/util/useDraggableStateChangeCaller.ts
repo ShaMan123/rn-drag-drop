@@ -1,10 +1,10 @@
 import * as _ from "lodash";
 import { useCallback } from "react";
-import { call, onChange, useCode, useValue, block, set, proc } from 'src/Animated';
+import { block, call, onChange, proc, set, useCode } from 'animated';
 import { DragDropContextT } from "./DragDropContext";
-import { DraggableState, DraggableStateChangeEvent } from "./Types";
+import { DraggableState, DraggableStateChangeEvent } from "../Types";
 
-export function useDragDropCallback<T>(context: DragDropContextT) {
+export default function useDraggableStateChangeCaller<T>(context: DragDropContextT) {
     const { currentDraggable, currentDropZone } = context;
     const callback = useCallback(([drag, lastDrag, drop, lastDrop, state]: ReadonlyArray<number>) => {
         let dragId = drag === -1 ? lastDrag : drag;
@@ -85,10 +85,11 @@ export function useDragDropCallback<T>(context: DragDropContextT) {
         ]
     );
 }
-
+/*
 const ff = proc((dragTag, dropT, dragState, value) => block([
     onChange(dragState, set(value, dragState)),
     onChange(dragTag, set(value, DraggableState.INACTIVE)),
     onChange(dropT, set(value, DraggableState.INACTIVE)),
     value
 ]));
+*/

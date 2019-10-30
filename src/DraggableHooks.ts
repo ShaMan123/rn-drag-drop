@@ -1,12 +1,10 @@
 ﻿import * as _ from "lodash";
-import React, { useCallback, useMemo, useState } from "react";
+import React, { useMemo } from "react";
 import { ViewProperties } from "react-native";
 import { LongPressGestureHandlerStateChangeEvent, PanGestureHandlerGestureEvent, PanGestureHandlerProperties, PanGestureHandlerStateChangeEvent, State } from "react-native-gesture-handler";
-import { and, block, cond, delay, diff, eq, eqWhile, event, neq, not, onChange, or, proc, set, springBack, useCode, useValue } from 'src/Animated';
-import { usePropsUnderHood, useUpdateContext } from "./Common";
-import { useDragDropContext } from "./DragDropContext";
+import { and, block, cond, delay, diff, eq, eqWhile, event, neq, not, onChange, or, proc, set, springBack, useCode, useValue } from 'animated';
 import { DraggableDesignatedProps, DraggableProps, DraggableState, Map } from "./Types";
-import { isStateActive } from "./Util";
+import { isStateActive, useDragDropContext, useDraggablePropsUnderHood, useUpdateContext } from "./util";
 
 /*
 function useDefaultDropCallback<T>(onDropProp: ((...any[])=>any) | boolean = true) {
@@ -37,12 +35,9 @@ export function useRegisterDraggable() {
     return id;
 }
 
-//@ts-ignore
-export const DraggablePropsUnderHood = React.createContext<DraggableProps<any>>({});
-
 export function useDraggableProps<T extends Map>(id: string, props: DraggableProps<T>) {
-    const consumedProps = usePropsUnderHood(DraggablePropsUnderHood, props);
-    const { simultaneousHandlers: simultaneousHandlersProp, children, containerStyle: containerStyleProp, style, onDrop: onDropProp } = consumedProps;
+    const consumedProps = useDraggablePropsUnderHood(props);
+    const { simultaneousHandlers: simultaneousHandlersProp, children, containerStyle: containerStyleProp, style } = consumedProps;
 
     const containerStyle = useMemo(() =>
         React.Children.count(children) === 0 ? containerStyleProp : style,
