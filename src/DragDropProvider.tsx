@@ -60,10 +60,11 @@ function DragDropProvider({ children, disableAutoRecalculation, transition, comp
     useDraggableStateChangeCaller(context);
 
     const ref = useRef<TransitioningView>();
+    useMemo(() => context.__setRoot(ref), []);
 
     useEffect(() => {
-        context.__setRoot(ref);
-    }, [ref]);
+        //context.__setRoot(ref);
+    }, []);
 
     useEffect(() => {
         context.setComparators(comparators);
@@ -73,7 +74,7 @@ function DragDropProvider({ children, disableAutoRecalculation, transition, comp
         <Transitioning.View
             ref={ref}
             transition={transition}
-            style={[styles.default, styles.overflow, {backgroundColor:'red'}]}
+            style={[styles.default, styles.overflow]}
             collapsable={false}
         >
             <DragDropContext.Provider

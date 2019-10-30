@@ -8,7 +8,7 @@ import { styles, useDragDropRef, useFirstChild } from "./util";
 
 function Draggable<T extends Map>(props: DraggableProps<T>) {
     const id = useRegisterDraggable();
-    const [finalProps, unmountComponent] = useDraggableProps(id, props);
+    const finalProps = useDraggableProps(id, props);
     const node = useFirstChild(props, id);
 
     const { simultaneousHandlers, children, containerStyle, style, longPressEnabled, ...rest } = finalProps;
@@ -20,34 +20,32 @@ function Draggable<T extends Map>(props: DraggableProps<T>) {
     const longPressHandler = useRef<LongPressGestureHandler>();
     const panHandler = useRef<PanGestureHandler>();
 
-    return unmountComponent ?
-        null :
-        (
-            <LongPressGestureHandler
-                {...rest}
-                {...activatorProps}
-                ref={longPressHandler}
-                simultaneousHandlers={_.concat(simultaneousHandlers, panHandler)}
-                enabled={longPressEnabled}
+    return (
+        <LongPressGestureHandler
+            {...rest}
+            {...activatorProps}
+            ref={longPressHandler}
+            simultaneousHandlers={_.concat(simultaneousHandlers, panHandler)}
+            enabled={longPressEnabled}
+        >
+            <View
+                collapsable={false}
+                style={[containerStyle, styles.overflow, translateStyle]}
             >
-                <View
-                    collapsable={false}
-                    style={[containerStyle, styles.overflow, translateStyle]}
+                <PanGestureHandler
+                    {...rest}
+                    {...panProps}
+                    ref={panHandler}
+                    simultaneousHandlers={_.concat(simultaneousHandlers, longPressHandler)}
                 >
-                    <PanGestureHandler
-                        {...rest}
-                        {...panProps}
-                        ref={panHandler}
-                        simultaneousHandlers={_.concat(simultaneousHandlers, longPressHandler)}
-                    >
-                        {React.cloneElement(node, {
-                            ref,
-                            collapsable: false
-                        })}
-                    </PanGestureHandler>
-                </View>
-            </LongPressGestureHandler>
-        );
+                    {React.cloneElement(node, {
+                        ref,
+                        collapsable: false
+                    })}
+                </PanGestureHandler>
+            </View>
+        </LongPressGestureHandler>
+    );
 }
 
 Draggable.defaultProps = {

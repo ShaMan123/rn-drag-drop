@@ -20,15 +20,15 @@ export default function useMeasureLayout(
     const [layout, setLayout] = useLayout();
 
     const measure = useCallback(() => {
-        /*
+        
         const handle = ref.current && findNodeHandle(ref.current);
         handle && UIManager.measure(handle, (x, y, width, height, pageX, pageY) => {
             if (_.some([width, height, pageX, pageY], _.isNil)) return;
             setLayout({ x: pageX, y: pageY, width, height });
         });
-        */
+        
         //console.log(ref)
-        context.measure(ref, (x, y, width, height) => setLayout({ x, y, width, height }));
+        //context.measure(ref, (x, y, width, height) => setLayout({ x, y, width, height }));
     }, [ref, setLayout, context.measure]);
 
     useMemo(() => context.registerCallback(id, 'measure', measure), [id, measure]);

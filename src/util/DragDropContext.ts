@@ -206,15 +206,17 @@ export function DragDropContextFactory() {
             _.map(this.dropZones, ({ __type, enabled, measure }) => (!type || this.isSameType(type, __type)) && enabled && measure());
         },
 
-        animateNextTransition: () => { },
+        animateNextTransition (){
+            return this.__rootRef.current && this.__rootRef.current.animateNextTransition();
+        },
+        /*
         setAnimateNextTransition(animateNextTransition: () => void) {
             this.animateNextTransition = animateNextTransition;
         },
-
-        __rootHandleTag: -1,
+        */
+        __rootRef: {current: null},
         __setRoot(ref: React.MutableRefObject<any>) {
-            this.__rootHandleTag = ref.current ? findNodeHandle(ref.current) || -1 : -1;
-            this.animateNextTransition = () => ref.current && ref.current.animateNextTransition();
+            this.__rootRef = ref;
         },
 
         measure(
@@ -223,9 +225,10 @@ export function DragDropContextFactory() {
             onFail: (...args: any[]) => (any | void) = (...args) => __DEV__ && console.warn('DragDrop: failed to measure view', ...args)
         ) {
             const handleTag = findNodeHandle(ref.current);
-            if (!handleTag) onFail();
+            const rootTag = findNodeHandle(this.__rootRef.current);
+            if (!handleTag || !rootTag) onFail();
             else {
-                UIManager.measureLayout(handleTag, this.__rootHandleTag, onFail, onSuccess);
+                UIManager.measureLayout(handleTag, rootTag, onFail, onSuccess);
             }  
         },
 
@@ -243,7 +246,7 @@ export function DragDropContextFactory() {
     }
 }
 
-export const DragDropContext = React.createContext<ReturnType<typeof DragDropContextFactory>>(DragDropContextFactory());
+export const DragDropContext = React.createContext<DragDropContextT | null>(null);
 
 /**
  * convience function
@@ -251,6 +254,6 @@ export const DragDropContext = React.createContext<ReturnType<typeof DragDropCon
  * */
 export function useDragDropContext() {
     const context = useContext(DragDropContext);
-    if (!context) throw new Error('DragDrop: context not found. \nIt seems you forgot to use DragDropProvider | DragDropProviderHOC\nFor More Information refer to the docs');
+    if (!context) throw new Error('DragDrop: context not found. \nIt seems you forgot to use DragDropProvider | DragDropProviderHOC\nFor more information refer to the docs');
     return context;
 }

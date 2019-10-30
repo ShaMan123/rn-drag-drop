@@ -49,13 +49,13 @@ export function useDraggableProps<T extends Map>(id: string, props: DraggablePro
         [simultaneousHandlersProp]
     );
 
-    const [unmount, onDrop] =[false, false]// useDefaultDropCallback(onDropProp);
+    //const [unmount, onDrop] =[false, false]// useDefaultDropCallback(onDropProp);
 
-    const finalProps = useMemo(() => _.assign({}, consumedProps, { onDrop, containerStyle, simultaneousHandlers }), [consumedProps, onDrop, containerStyle, simultaneousHandlers])
+    const finalProps = useMemo(() => _.assign({}, consumedProps, { containerStyle, simultaneousHandlers }), [consumedProps, containerStyle, simultaneousHandlers])
     
     useUpdateContext(id, finalProps);  
     
-    return [finalProps, unmount] as [Required<DraggableProps<T>>, boolean];
+    return finalProps;
 }
 
 const isOverSameDropZone = proc((currentDropZoneTag) => cond(eq(currentDropZoneTag, -1), 0, eq(diff(currentDropZoneTag), 0)));
