@@ -5,8 +5,7 @@
 package-lock.json
 
 # Xcode
-#
-ios
+# ios
 build/
 *.pbxuser
 !default.pbxuser
@@ -27,8 +26,8 @@ project.xcworkspace
 
 # Android/IntelliJ
 
-android
-#
+
+# android
 build/
 .idea
 .gradle

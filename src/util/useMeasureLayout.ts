@@ -6,6 +6,7 @@ import { OffsetRect } from "../Types";
 import useLayout from "./useLayout";
 import setOffsetRect from "./setOffsetRect";
 import _ from "lodash";
+import { useStatusBarHeight } from "./useStatusBarHeight";
 
 export default function useMeasureLayout(
     id: string,
@@ -20,13 +21,13 @@ export default function useMeasureLayout(
     const [layout, setLayout] = useLayout();
 
     const measure = useCallback(() => {
-        
+
         const handle = ref.current && findNodeHandle(ref.current);
         handle && UIManager.measure(handle, (x, y, width, height, pageX, pageY) => {
             if (_.some([width, height, pageX, pageY], _.isNil)) return;
             setLayout({ x: pageX, y: pageY, width, height });
         });
-        
+
         //console.log(ref)
         //context.measure(ref, (x, y, width, height) => setLayout({ x, y, width, height }));
     }, [ref, setLayout, context.measure]);
@@ -34,7 +35,7 @@ export default function useMeasureLayout(
     useMemo(() => context.registerCallback(id, 'measure', measure), [id, measure]);
 
     const statusBarHeight = useStatusBarHeight();
-    
+
     useCode(setOffsetRect(id, props.offsets), [props.offsets]);
 
     const hitRect = useMemo(() => {

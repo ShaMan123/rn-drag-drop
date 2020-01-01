@@ -5373,10 +5373,9 @@ react-native-gesture-handler@^1.5.0:
     invariant "^2.2.4"
     prop-types "^15.7.2"
 
-react-native-reanimated@^1.3.0:
-  version "1.3.0"
-  resolved "https://registry.yarnpkg.com/react-native-reanimated/-/react-native-reanimated-1.3.0.tgz#581cdb0bd1ff05e7304b116af712ded0c7665ede"
-  integrity sha512-KFno6D0q09kx71IDuPa4qeC1t1msALsCMuli3/EN3YDf8XoM2CG53yzhVHMFtmcW0IUCySugHgxQiuT5BzwOPA==
+"react-native-reanimated@github:ShaMan123/react-native-reanimated#android-cwd":
+  version "1.4.0"
+  resolved "https://codeload.github.com/ShaMan123/react-native-reanimated/tar.gz/cfbd61fa80216f0db15a0e388894cc38dda0d3b2"
 
 react-native-typescript-transformer@^1.2.13:
   version "1.2.13"

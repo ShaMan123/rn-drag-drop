@@ -19,7 +19,7 @@ import FlatListExample from './src/FlatListExample';
 
 export default function App() {
     return (
-        
-        <FlatListExample />
+
+        <BasicExample />
     );
 }

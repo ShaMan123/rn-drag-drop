@@ -12,12 +12,12 @@ export function useCalculateLayoutForDraggable<T>(draggable: string | DraggableC
     const { isActive, __type } = typeof draggable === 'string' ? context.getDraggable(draggable) : draggable;
     useCode(
         onChange(
-            isActive, 
+            isActive,
             cond(
                 not(isActive),
                 call([isActive], () => context.recalculateLayout(__type))
-                )
-            ),
+            )
+        ),
         [isActive, __type]
     );
 }
@@ -34,7 +34,7 @@ export function useCalculateLayout(context: DragDropContextT) {
             lastTag,
             call([lastTag], ([d]) => {
                 try {
-                    if (!context.autoRecalc) return;
+                    if (!context.autoRecalc || d === -1) return;
                     const draggable = context.safeGetDraggable(d);
                     context.recalculateLayout(draggable.__type);
                 }
