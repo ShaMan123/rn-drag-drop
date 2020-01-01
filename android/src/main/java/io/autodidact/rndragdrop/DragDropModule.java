@@ -7,11 +7,8 @@ import com.facebook.react.bridge.ReactMethod;
 
 public class DragDropModule extends ReactContextBaseJavaModule {
 
-    final DraggableRegistry registry;
-
     public DragDropModule(ReactApplicationContext reactContext) {
         super(reactContext);
-        registry = new DraggableRegistry(reactContext);
     }
 
     @Override

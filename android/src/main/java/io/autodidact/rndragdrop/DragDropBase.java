@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.os.Build;
+import android.util.Log;
 import android.view.DragEvent;
 import android.view.View;
 
@@ -74,6 +75,7 @@ public class DragDropBase extends ReactViewGroup {
     }
 
     void startDragging() {
+        Log.d(DragDropPackage.TAG, "startDragging: ");
         ClipData data = createClipData();
         DragShadowBuilder shadowBuilder = new DragShadowBuilder(this);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {

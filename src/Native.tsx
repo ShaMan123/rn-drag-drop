@@ -42,7 +42,7 @@ function Draggable<T extends Map>(props: DraggableProps<T>) {
                     ref={panHandler}
                     simultaneousHandlers={_.concat(simultaneousHandlers, longPressHandler)}
                 >
-                    <DraggableNativeView>
+                    <DraggableNativeView style={[styles.default, { backgroundColor: 'red' }]}>
                         {React.cloneElement(node, {
                             ref,
                             collapsable: false
